@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeSingleBet } from "../../store/bets";
+import { removeSingleBet, removeAllBets } from "../../store/bets";
 
 export default function DisplayBetHistory() {
 
@@ -28,6 +28,11 @@ export default function DisplayBetHistory() {
             <ul className="h-60 overflow-y-auto">
                 {renderBetHistory}
             </ul>
+            <button 
+                className="bg-red-100 px-2 hover:bg-red-300 disabled:bg-gray-100 border border-black"
+                disabled={betHistory.length === 0}
+                onClick={()=>dispatch(removeAllBets())}
+            >Remove All Bets</button>
         </div>
     )
 }
