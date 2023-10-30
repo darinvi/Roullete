@@ -6,7 +6,7 @@ export default function SingleNumber(props){
     const dispatch = useDispatch();
 
     return <button 
-        className={`${props.color} px-4 py-2 border border-black transform active:scale-110 active:z-50`}
+        className={`${props.color} px-4 py-2 border border-black transform active:scale-110 active:z-50 w-1/12`}
         onClick={()=>{
             dispatch(handleBet(props.value));
         }}

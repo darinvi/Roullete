@@ -71,16 +71,16 @@ function handleNonNumericKey(currentState, bet, value) {
         case '1st12':
         case '2nd12':
         case '3rd12':
-            newState = handleThirds(newState, bet, value);
+            return newState = handleThirds(newState, bet, value);
         case 'Odd':
         case 'Even':
-            newState = handleEvenOdd(newState, bet, value);
+            return newState = handleEvenOdd(newState, bet, value);
         case 'Red':
         case 'Black':
-            newState = handleColors(newState, bet, value);
+            return newState = handleColors(newState, bet, value);
         case '1 to 18':
         case '19 to 36':
-            newState = handleHalves(newState, bet, value);
+            return newState = handleHalves(newState, bet, value);
     }
     return newState
 }
@@ -105,9 +105,13 @@ function handleEvenOdd(state, bet, value) {
     const evenStart = bet == 'Even' ? 1 : 0;
     for (let i = 1 + evenStart; i <= 36; i += 2) {
         if (state[i]) {
+            console.log(state[i], '1')
             state[i] += value / 18;
+            console.log(state[i], '2')
         } else {
+            console.log(state[i], '3')
             state[i] = value / 18;
+            console.log(state[i], '4')
         }
     }
     return state;
@@ -117,8 +121,10 @@ function handleColors(state, bet, value) {
     const currentNumbers = bet == 'Red' ? RED_NUMBERS : BLACK_NUMBERS
     for (let num of currentNumbers) {
         if (state[num]) {
+            console.log(value / 18)
             state[num] += value / 18;
         } else {
+            console.log(value / 18)
             state[num] = value / 18;
         }
     }

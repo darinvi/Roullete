@@ -11,8 +11,8 @@ export default function DisplayBetSummary() {
                 className='grid grid-cols-3 gap-x-3 items-stretch border hover:bg-gray-100'
             >
                 <p className="text-center">{number}</p>
-                <p className="text-center">{value}</p>
-                <p className="text-center">{value*36}</p>
+                <p className="text-center">{parseFloat(value).toFixed(2)}</p>
+                <p className="text-center">{parseFloat(value*36).toFixed(0)}</p>
             </div>
         )
     })
@@ -32,7 +32,7 @@ export default function DisplayBetSummary() {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="h-64 overflow-y-auto">
                 {renderSummary}
             </div>
         </div>
