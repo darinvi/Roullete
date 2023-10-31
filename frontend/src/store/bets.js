@@ -6,7 +6,12 @@ const slice = createSlice({
         betCounter: 0,
         betHistory: [],
         betSummary: [],
+        betTotal: 0,
         currentChip: 1000,
+        preparedData: {
+            numbers: [],
+            payouts: []
+        }
     },
     reducers: {
         setCurrentChip: (state, action) => {
@@ -16,15 +21,27 @@ const slice = createSlice({
             const number = action.payload
             state.betHistory.push({ number: number, amount: state.currentChip, id: state.betCounter++ });
             state.betSummary = getSummary(state.betHistory);
+            state.betTotal = calculateTotal(state.betSummary);
+            state.preparedData = prepareData(state.betSummary);
         },
         removeSingleBet: (state, action) => {
             state.betHistory = state.betHistory.filter(bet => bet.id !== action.payload)
             state.betSummary = getSummary(state.betHistory);
+            state.betTotal = calculateTotal(state.betSummary);
+            state.preparedData = prepareData(state.betSummary);
         },
         removeAllBets: (state) => {
             state.betCounter = 0
             state.betHistory = []
             state.betSummary = []
+            state.betTotal = 0
+            state.preparedData = {
+                numbers: [],
+                payouts: []
+            }
+        },
+        prepareSummaryForContract: (state) => {
+            
         }
     },
 });
@@ -33,7 +50,7 @@ export const {
     setCurrentChip,
     handleBet,
     removeSingleBet,
-    removeAllBets
+    removeAllBets,
 } = slice.actions;
 export default slice.reducer;
 
@@ -49,7 +66,9 @@ function getSummary(data) {
             return curr += next.amount
         }, 0)
     }
-    return handlNonNumericBets(summary);
+    summary = handlNonNumericBets(summary)
+    // Will be sending to solidity, so I can't use floats
+    return roundValues(summary);
 }
 
 function handlNonNumericBets(data) {
@@ -105,13 +124,9 @@ function handleEvenOdd(state, bet, value) {
     const evenStart = bet == 'Even' ? 1 : 0;
     for (let i = 1 + evenStart; i <= 36; i += 2) {
         if (state[i]) {
-            console.log(state[i], '1')
             state[i] += value / 18;
-            console.log(state[i], '2')
         } else {
-            console.log(state[i], '3')
             state[i] = value / 18;
-            console.log(state[i], '4')
         }
     }
     return state;
@@ -121,10 +136,8 @@ function handleColors(state, bet, value) {
     const currentNumbers = bet == 'Red' ? RED_NUMBERS : BLACK_NUMBERS
     for (let num of currentNumbers) {
         if (state[num]) {
-            console.log(value / 18)
             state[num] += value / 18;
         } else {
-            console.log(value / 18)
             state[num] = value / 18;
         }
     }
@@ -141,4 +154,32 @@ function handleHalves(state, bet, value) {
         }
     }
     return state;
+}
+
+function calculateTotal(data){
+    let total = 0;
+    for (let value of Object.values(data)) {
+        total += value;
+    }
+    return total;
+}
+
+function roundValues(data){
+    let summary = {};
+    for (let [key, value] of Object.entries(data)) {
+        summary[key] = Math.round(value)
+    }
+    return summary;
+}
+
+function prepareData(data){
+    let preparedData = {
+        numbers: [],
+        payouts: []
+    }
+    for (let [key, value] of Object.entries(data)) {
+        preparedData.numbers.push(key);
+        preparedData.payouts.push(value);
+    }
+    return preparedData;
 }
