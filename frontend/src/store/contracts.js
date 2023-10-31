@@ -5,8 +5,8 @@ const slice = createSlice({
     initialState: {
         rollCounter: 0,
         loading: false,
-        rollHistory: [],
-        lastRoll: {},
+        roll: null,
+        lastTotal: 0,
     },
     reducers: {
         setLoading: (state, action) => {
@@ -15,15 +15,18 @@ const slice = createSlice({
             }
         },
         handleRollEvent: (state, action) => {
-            const roll = {...action.payload, id:state.rollCounter++}
-            state.rollHistory.push(roll)
-            state.lastRoll = roll
+            state.roll = {...action.payload, id:state.rollCounter++}
             state.loading = false;
+        },
+        setTotal: (state, action) => {
+            state.lastTotal = action.payload;
         }
     },
 });
 
 export const {
-    setLoading
+    setLoading,
+    handleRollEvent,
+    setTotal
 } = slice.actions;
 export default slice.reducer;

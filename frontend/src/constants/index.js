@@ -1,4 +1,4 @@
-export const ROULETTER_ABI = [
+export const ROULETTE_ABI = [
     {
       "inputs": [],
       "stateMutability": "nonpayable",
