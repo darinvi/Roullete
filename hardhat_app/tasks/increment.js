@@ -4,7 +4,7 @@ task("increment", "INcrement")
         const TestPlatform = await hre.ethers.getContractFactory("Test")
 
         const platform = new hre.ethers.Contract(
-            "0x9aE800e141Bc3c9823D3C55Eb9B6e92babf6d04d",
+            "0xbdee009fa4f88d54be77ce8313e78c988eb26c40",
             TestPlatform.interface,
             await hre.ethers.getSigner(taskArgs.account)
         );

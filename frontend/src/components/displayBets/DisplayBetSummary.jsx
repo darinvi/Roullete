@@ -18,7 +18,7 @@ export default function DisplayBetSummary() {
     })
 
     return (
-        <div className="flex flex-col gap-2 border-2 h-68 w-fit">
+        <div className="flex flex-col gap-2 border-4 border-gray-200 h-fit w-fit bg-white">
             <div>
                 <div className="grid grid-cols-3 gap-x-3 items-stretch bg-gray-200">
                     <div>

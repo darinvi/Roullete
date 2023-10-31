@@ -23,13 +23,13 @@ export default function DisplayBetHistory() {
     })
 
     return (
-        <div className="flex flex-col gap-2 border-2 h-68">
+        <div className="flex flex-col gap-2 border-4 h-fit bg-white">
             <p className="w-full text-center bg-gray-100">Bets:</p>
-            <ul className="h-60 overflow-y-auto">
+            <ul className="h-64 overflow-y-auto">
                 {renderBetHistory}
             </ul>
             <button 
-                className="bg-red-100 px-2 hover:bg-red-300 disabled:bg-gray-100 border border-black"
+                className="bg-red-100 px-2 hover:bg-red-300 disabled:bg-gray-100 border-t-4 border-gray"
                 disabled={betHistory.length === 0}
                 onClick={()=>dispatch(removeAllBets())}
             >Remove All Bets</button>
