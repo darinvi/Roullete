@@ -3,4 +3,6 @@ npm install
 npm start
 
 Demo smart contract, allows for basic interaction. 
-ToDo: add ivnestment into the roulette and allow investors to withdrawal their portion of the profits
+ToDo: 
+    -add ivnestment into the roulette and allow investors to withdrawal their portion of the profits
+    -Implement VRF instead of pseudo random
