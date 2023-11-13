@@ -7,7 +7,7 @@ import ConnectComponent from './ConnectComponent'
 import { useEffect } from 'react'
 import EventListener from './EventListener'
 
-const rpcUrl = "https://eth-sepolia.g.alchemy.com/v2/QYabFPuJ3AfWlpgh8svKK4XJ_Yj9FUz4"
+const rpcUrl = "https://eth-sepolia.g.alchemy.com/v2/EB_Y3YZKU0iLP46kusxjohflv9CKjsbH"
 
 const injected = injectedModule();
 
